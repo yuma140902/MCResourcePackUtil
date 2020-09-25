@@ -45,8 +45,8 @@ namespace MCResourcePackUtil.Forms
 
 		private void selectionBtn_Click(object sender, EventArgs e)
 		{
-			var dialog = new ResourcePackSelectionDialog();
-			if(dialog.ShowDialog() == DialogResult.OK) {
+			var dialog = new ResourcePackSelector();
+			if(dialog.ShowDialog()) {
 				this.pathBox.Text = string.Join(", ", dialog.ResourcePackPaths);
 				this.resourcePackPaths = dialog.ResourcePackPaths;
 				this.resourcePackType = dialog.ResourcePackType;
