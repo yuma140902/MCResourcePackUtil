@@ -8,11 +8,10 @@ using System.Threading.Tasks;
 
 namespace MCResourcePackUtil.Textures
 {
-	interface ITexture
+	interface ITexture : IDisposable
 	{
 		void LoadPngFileToMemory();
 		void ApplyFilter(IGraphicFilter filter);
 		void WriteToResourcePack(string destResourcePackRoot);
-		//あるいは出力先をIOutputで一般化するのはあきらめて、すべてフォルダに出力したあと、必要に応じてZip圧縮する ←これがよさげ。IOutputは削除
 	}
 }

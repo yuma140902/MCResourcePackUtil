@@ -27,7 +27,8 @@ namespace MCResourcePackUtil.Util
 		protected virtual void Dispose(bool disposing)
 		{
 			if (Directory.Exists(this.Path)) {
-				Directory.Delete(this.Path, recursive: true);
+				try { Directory.Delete(this.Path, recursive: true); }
+				catch (Exception) { }
 			}
 		}
 

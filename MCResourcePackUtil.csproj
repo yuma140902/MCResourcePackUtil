@@ -147,6 +147,7 @@
     <Compile Include="Textures\TextureInFolder.cs" />
     <Compile Include="Textures\TextureInZip.cs" />
     <Compile Include="Util\TemporaryDirectory.cs" />
+    <Compile Include="Util\TemporaryFile.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

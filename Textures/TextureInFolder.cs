@@ -11,12 +11,13 @@ using System.Threading.Tasks;
 
 namespace MCResourcePackUtil.Textures
 {
-	class TextureInFolder : ITexture, IDisposable
+	class TextureInFolder : ITexture
 	{
 		private readonly string rootPath;
 		private readonly string relPngFile;
 		private readonly string relMcmetaFile;
 		private Mat img;
+		private bool disposedValue;
 
 		public TextureInFolder(string rootPath, string pngPath)
 		{
@@ -55,6 +56,26 @@ namespace MCResourcePackUtil.Textures
 				Debug.WriteLine($"{srcMcmeta} を {destMcmeta} へコピー");
 			}
 		}
-		public void Dispose() => this.img.Dispose();
+
+		protected virtual void Dispose(bool disposing)
+		{
+			if (!disposedValue) {
+				if (disposing) {
+					// マネージドリソースを破棄
+					img?.Dispose();
+				}
+
+				// アンマネージドリソースを破棄
+				disposedValue = true;
+			}
+		}
+
+		~TextureInFolder() => Dispose(disposing: false);
+
+		public void Dispose()
+		{
+			Dispose(disposing: true);
+			GC.SuppressFinalize(this);
+		}
 	}
 }

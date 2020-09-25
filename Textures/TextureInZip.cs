@@ -1,4 +1,5 @@
 ﻿using MCResourcePackUtil.GraphicFilters;
+using MCResourcePackUtil.Util;
 using OpenCvSharp;
 using System;
 using System.Collections.Generic;
@@ -10,29 +11,31 @@ using System.Threading.Tasks;
 
 namespace MCResourcePackUtil.Textures
 {
-	class TextureInZip : ITexture //TODO
+	class TextureInZip : ITexture
 	{
-		private string extractedPngPath;
-		private string extractedMcmetaPath;
+		private TemporaryFile extractedPng;
+		private TemporaryFile extractedMcmeta;
 		private string relPath;
 
 		public TextureInZip(ZipArchiveEntry pngEntry)
 		{
-			this.extractedPngPath = Path.GetTempFileName();
-			pngEntry.ExtractToFile(this.extractedPngPath, true);
+			this.extractedPng = new TemporaryFile();
+			pngEntry.ExtractToFile(this.extractedPng.Path, true);
 
 			var entryMcmeta = pngEntry.Archive.GetEntry(pngEntry.FullName + ".mcmeta");
-			if(entryMcmeta != null) {
-				this.extractedMcmetaPath = Path.GetTempFileName();
-				entryMcmeta.ExtractToFile(this.extractedMcmetaPath, true);
+			if (entryMcmeta != null) {
+				this.extractedMcmeta = new TemporaryFile();
+				entryMcmeta.ExtractToFile(this.extractedMcmeta.Path, true);
 			}
 
 			this.relPath = pngEntry.FullName.Replace("/", "\\");
 		}
 
-		Mat img;
+		private Mat img;
 
-		public void LoadPngFileToMemory() => this.img = Cv2.ImRead(this.extractedPngPath, ImreadModes.Unchanged);
+		private bool disposedValue;
+
+		public void LoadPngFileToMemory() => this.img = Cv2.ImRead(this.extractedPng.Path, ImreadModes.Unchanged);
 
 		public void ApplyFilter(IGraphicFilter filter) => this.img = filter.Filter(img);
 
@@ -49,9 +52,32 @@ namespace MCResourcePackUtil.Textures
 			if (!File.Exists(destPng)) {
 				this.img.ImWrite(destPng);
 			}
-			if(File.Exists(this.extractedMcmetaPath) && !File.Exists(destMcmeta)) {
-				File.Copy(this.extractedMcmetaPath, destMcmeta);
+			if (this.extractedMcmeta != null && File.Exists(this.extractedMcmeta.Path) && !File.Exists(destMcmeta)) {
+				File.Copy(this.extractedMcmeta.Path, destMcmeta);
 			}
+		}
+
+		protected virtual void Dispose(bool disposing)
+		{
+			if (!disposedValue) {
+				if (disposing) {
+					// マネージドリソースを破棄
+					this.extractedPng.Dispose();
+					this.extractedMcmeta.Dispose();
+					this.img?.Dispose();
+				}
+
+				// アンマネージドリソースを破棄
+				disposedValue = true;
+			}
+		}
+
+		~TextureInZip() => Dispose(disposing: false);
+
+		public void Dispose()
+		{
+			Dispose(disposing: true);
+			GC.SuppressFinalize(this);
 		}
 	}
 }
