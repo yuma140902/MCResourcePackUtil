@@ -20,7 +20,7 @@ namespace MCResourcePackUtil.GraphicFilters
 
 		private TraditionalBeautyFilterMoreBold() { }
 
-		public Mat Filter(Mat input)
+		public Mat Apply(Mat input)
 		{
 			// アルファチャンネルがない場合はアルファチャンネルを付加
 			if (input.Channels() <= 3) {

@@ -31,7 +31,7 @@ namespace MCResourcePackUtil.Textures
 		public void LoadPngFileToMemory()
 			=> this.img = Cv2.ImRead(Path.Combine(this.rootPath, this.relPngFile), ImreadModes.Unchanged);
 
-		public void ApplyFilter(IGraphicFilter filter) => this.img = filter.Filter(img);
+		public void ApplyFilter(IGraphicFilter filter) => this.img = filter.Apply(img);
 
 		public void WriteToResourcePack(string destResourcePackRoot)
 		{

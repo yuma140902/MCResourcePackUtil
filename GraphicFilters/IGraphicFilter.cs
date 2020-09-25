@@ -9,6 +9,6 @@ namespace MCResourcePackUtil.GraphicFilters
 {
 	interface IGraphicFilter
 	{
-		Mat Filter(Mat image);
+		Mat Apply(Mat image);
 	}
 }
