@@ -104,7 +104,7 @@ namespace MCResourcePackUtil.Forms
 
 		private static void run(EnumResourcePackType packType, string packPath, string outputZipPath, IGraphicFilter filter)
 		{
-			var tempDir = new TemporaryDirectory();
+			using var tempDir = new TemporaryDirectory();
 			Debug.WriteLine($"tempDir: {tempDir.Path}");
 			var resourcePack = ResourcePackLoaders.Load(packType, packPath);
 			foreach (var texture in resourcePack.EnumerateTextures()) {
