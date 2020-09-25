@@ -60,7 +60,7 @@ namespace MCResourcePackUtil.Forms
 				return;
 			}
 			else if (this.resourcePackPaths.Count == 1) {
-				string dfltName = Path.GetFileNameWithoutExtension(this.resourcePackPaths[0]) + ".zip";
+				this.zipSaveDialog.DefaultFileName = Path.GetFileNameWithoutExtension(this.resourcePackPaths[0]) + ".zip";
 				if (this.zipSaveDialog.ShowDialog() == CommonFileDialogResult.Ok) {
 					this.outputPathBox.Text = this.zipSaveDialog.FileName;
 					this.outputZipPath = this.zipSaveDialog.FileName;
