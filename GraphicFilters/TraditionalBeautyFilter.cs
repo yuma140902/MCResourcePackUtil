@@ -11,6 +11,13 @@ namespace MCResourcePackUtil.GraphicFilters
 	{
 		public readonly static TraditionalBeautyFilter Instance = new TraditionalBeautyFilter();
 
+		private static readonly InputArray kernelDiffXY = InputArray.Create(new double[,]
+			{
+				{-1.0, 0.0, 0.0 },
+				{ 0.0, 1.0, 0.0 },
+				{ 0.0, 0.0, 0.0 }
+			});
+
 		private TraditionalBeautyFilter() { }
 
 		public Mat Filter(Mat input)
@@ -37,13 +44,6 @@ namespace MCResourcePackUtil.GraphicFilters
 			Cv2.CvtColor(input, input, ColorConversionCodes.BGR2HSV);
 
 			// ドットを識別する
-
-			var kernelDiffXY = InputArray.Create(new double[,]
-			{
-				{-1.0, 0.0, 0.0 },
-				{ 0.0, 1.0, 0.0 },
-				{ 0.0, 0.0, 0.0 }
-			}); // ←クラス定数にしたら処理が少し軽くなりそう
 			using var edgeXY = grayscaled.Filter2D(grayscaled.Type(), kernelDiffXY);
 
 			var output = input.Clone();
