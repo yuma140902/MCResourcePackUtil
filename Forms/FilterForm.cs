@@ -111,6 +111,7 @@ namespace MCResourcePackUtil.Forms
 				texture.LoadPngFileToMemory();
 				texture.ApplyFilter(filter);
 				texture.WriteToResourcePack(tempDir.Path);
+				texture.Dispose();
 			}
 
 			ZipFile.CreateFromDirectory(tempDir.Path, outputZipPath, CompressionLevel.Fastest, false, Encoding.UTF8);

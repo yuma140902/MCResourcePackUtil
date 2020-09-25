@@ -63,7 +63,7 @@ namespace MCResourcePackUtil.Textures
 				if (disposing) {
 					// マネージドリソースを破棄
 					this.extractedPng.Dispose();
-					this.extractedMcmeta.Dispose();
+					this.extractedMcmeta?.Dispose();
 					this.img?.Dispose();
 				}
 
