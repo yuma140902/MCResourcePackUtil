@@ -12,18 +12,18 @@ using System.Windows.Forms;
 
 namespace MCResourcePackUtil
 {
-	public partial class Form1 : Form
-	{
-		public Form1()
-		{
-			InitializeComponent();
-			this.appVersionLabel.Text = Assembly.GetExecutingAssembly().GetName().Version.ToString(3);
-		}
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+            this.appVersionLabel.Text = "v" + Assembly.GetExecutingAssembly().GetName().Version.ToString(3);
+        }
 
-		private void filterBtn_Click(object sender, EventArgs e)
-		{
-			var form = new FilterForm();
-			form.ShowDialog();
-		}
-	}
+        private void filterBtn_Click(object sender, EventArgs e)
+        {
+            var form = new FilterForm();
+            form.ShowDialog();
+        }
+    }
 }
