@@ -131,6 +131,7 @@
     <Compile Include="GraphicFilters\IGraphicFilter.cs" />
     <Compile Include="GraphicFilters\TraditionalBeautyFilterMoreBold.cs" />
     <Compile Include="GraphicFilters\TraditionalBeautyFilter.cs" />
+    <Compile Include="GraphicFilters\TraditionalBeautyV2Filter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResourcePacks\EnumResourcePackType.cs" />
